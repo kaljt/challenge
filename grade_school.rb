@@ -1,6 +1,6 @@
 #student_name => current_grade
 
-
+require 'pry'
 
 class School
   attr_accessor :students
@@ -26,15 +26,18 @@ class School
   end
 
   def to_h
-    new_students = {}
-    students.each do | grade, name |
-      students[grade].sort!
-    end
-    keys = students.keys.sort
-    keys.each do |key|
-      new_students[key] = students.fetch(key)
-    end
-    new_students
+    #new_students = {}
+    #students.each do | grade, name |
+    #  students[grade].sort!
+    #end
+    #binding.pry
+    #keys = students.keys.sort
+    #keys.each do |key|
+    #  new_students[key] = students.fetch(key)
+    #end
+    #new_students
+    students.sort.each { |student| student[1].sort! }.to_h
+      
   end
 
 
