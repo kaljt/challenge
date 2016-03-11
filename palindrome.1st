@@ -1,0 +1,58 @@
+class Palindromes
+  
+  def initialize(max_factor: 1, min_factor: 1)
+    @factor_range = (min_factor..max_factor).to_a
+    @dummy_range = (min_factor..max_factor).to_a
+    @product_list = []
+  end
+  
+  def generate
+    @test_range = @factor_range.product(@dummy_range)
+    @palindrome_list = @test_range.select { |num_pair| palindrome?((num_pair.first * num_pair.last)) }
+    @palindrome_list.each {|pair| @product_list << pair.reduce(:*)}
+  end
+  
+  def smallest
+    PalindromeCalculator.new(@product_list.sort.first, @palindrome_list)
+  end
+  
+  def largest
+    PalindromeCalculator.new(@product_list.sort.last, @palindrome_list)
+  end
+  
+  def palindrome?(product)
+    product_string = product.to_s.split('')
+    loop do
+      if product_string.empty?
+        break
+      elsif product_string.first == product_string.last
+        product_string.slice!(-1)
+        product_string.slice!(0)
+      else
+        break
+      end
+    end
+    if product_string.empty? 
+      return true
+    else
+      return false
+    end
+  end
+end
+
+class PalindromeCalculator
+  
+  def initialize(value, pairs)
+    @value = value
+    @pairs = pairs
+  end
+  
+  def value
+    @value
+  end  
+  
+  def factors
+    factor_list = @pairs.select { |values| (values.reduce(:*) == @value) }
+    factor_list.map { |pair| pair.sort }.uniq
+  end
+end
