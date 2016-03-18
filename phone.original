@@ -1,0 +1,36 @@
+# class PhoneNumber pulls valid number from string
+require 'pry'
+class PhoneNumber
+  attr_reader :number
+  
+  def initialize(ph_string)
+    @number = ph_string.scan(/\d+/).join
+    validate
+  end
+  
+  def area_code
+    
+  end
+  
+  def to_s
+    
+  end
+  
+  def validate
+   if number.length < 10 || number.length > 11
+    @number ='0000000000'
+    elsif number.length == 11
+      if number.slice(0,1) == '1'
+      number.slice!(0,1)
+    else
+      @number = '0000000000'
+    end
+    else
+      return
+  end
+  end
+  
+  
+  
+  
+end
